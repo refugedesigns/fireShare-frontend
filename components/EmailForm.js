@@ -25,13 +25,14 @@ const EmailForm = ({id}) => {
             }
         }).then(res => res.json())
           .then(data => {
-              console.log(data)
-              setEmailStatus(`File sent to ${emailTo}`)
+            console.log(data)
+            setEmailStatus(`File sent to ${emailTo}`)
+            setEmailFrom("")
+            setEmailTo("")
             })
           .catch(err => console.log(err))
 
-          setEmailFrom("")
-          setEmailTo("")
+          
 
     }
     
