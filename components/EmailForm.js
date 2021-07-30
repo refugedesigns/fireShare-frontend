@@ -3,16 +3,17 @@ import { useState } from "react"
 const EmailForm = ({id}) => {
     const [emailFrom, setEmailFrom] = useState('')
     const [emailTo, setEmailTo] = useState('')
-    const [error, setError] = useState()
+    const [error, setError] = useState(null)
+    const [emailStatus, setEmailStatus] = useState("")
     
-    const sendEmailHandler = () => {
+    const sendEmailHandler = async() => {
         
         if(emailFrom.trim() === '' || emailTo.trim() === '') {
             setError("You inputs are incorrect, please check and try again.")
             return
         }
         
-        fetch(`${process.env.BASE_URL}/api/files/email`, {
+        await fetch(`${process.env.BASE_URL}/api/files/email`, {
             method: "POST",
             body: JSON.stringify({
                 id: id,
@@ -23,8 +24,15 @@ const EmailForm = ({id}) => {
                 "Content-Type": "application/json"
             }
         }).then(res => res.json())
-          .then(data => console.log(data))
+          .then(data => {
+              console.log(data)
+              setEmailStatus(`File sent to ${emailTo}`)
+            })
           .catch(err => console.log(err))
+
+          setEmailFrom("")
+          setEmailTo("")
+
     }
     
     return (
@@ -33,6 +41,7 @@ const EmailForm = ({id}) => {
             <input onChange={(event) => setEmailFrom(event.target.value)} type="email" placeholder="Email From" className="p-2 w-full rounded-md text-gray-600 focus:outline-none focus:ring focus:ring-gray-500" required/>
             <input onChange={(event) => setEmailTo(event.target.value)} type="email" placeholder="Email To" className="p-2 w-full rounded-md text-gray-600 focus:outline-none focus:ring focus:ring-gray-500" required />
             {error && <p className="text-gray-600">{error}</p>}
+            {emailStatus && <p className="text-gray-600">{emailStatus}</p>}
             <button onClick={sendEmailHandler} className="button w-1/2">Email</button>
         </div>
     )

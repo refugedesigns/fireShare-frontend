@@ -8,7 +8,6 @@ const DropZone = ({setFile}) => {
     const onDrop = useCallback(
         (acceptedFile) => {
             setFile(acceptedFile[0])
-            console.log(acceptedFile)
         },
         [])
     const { getRootProps, getInputProps, isDragAccept, isDragReject } = useDropzone({onDrop, multiple: false, accept: "image/jpeg, image/png, audio/mpeg"})
