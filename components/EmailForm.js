@@ -28,12 +28,12 @@ const EmailForm = ({id}) => {
           .then(data => {
             console.log(data)
             setEmailStatus(`File sent to ${emailTo}`)
-            setEmailFrom("")
-            setEmailTo("")
+            
             })
           .catch(err => console.log(err))
 
-          
+        setEmailFrom("")
+        setEmailTo("")
 
     }
     
