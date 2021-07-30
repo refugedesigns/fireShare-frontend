@@ -6,7 +6,8 @@ const EmailForm = ({id}) => {
     const [error, setError] = useState(null)
     const [emailStatus, setEmailStatus] = useState("")
     
-    const sendEmailHandler = async() => {
+    const sendEmailHandler = async(event) => {
+        event.preventDefault()
         
         if(emailFrom.trim() === '' || emailTo.trim() === '') {
             setError("You inputs are incorrect, please check and try again.")
@@ -37,14 +38,14 @@ const EmailForm = ({id}) => {
     }
     
     return (
-        <div className="p-4 flex flex-col items-center justify-center space-y-4 border-2 border-gray-500 my-4 rounded-md">
+        <form onSubmit={sendEmailHandler} className="p-4 flex flex-col items-center justify-center space-y-4 border-2 border-gray-500 my-4 rounded-md">
             <p className="text-gray-600">You can also send the link through mail directly</p>
             <input onChange={(event) => setEmailFrom(event.target.value)} type="email" placeholder="Email From" className="p-2 w-full rounded-md text-gray-600 focus:outline-none focus:ring focus:ring-gray-500" required/>
             <input onChange={(event) => setEmailTo(event.target.value)} type="email" placeholder="Email To" className="p-2 w-full rounded-md text-gray-600 focus:outline-none focus:ring focus:ring-gray-500" required />
             {error && <p className="text-gray-600">{error}</p>}
             {emailStatus && <p className="text-gray-600">{emailStatus}</p>}
-            <button onClick={sendEmailHandler} className="button w-1/2">Email</button>
-        </div>
+            <button type="submit" className="button w-1/2">Email</button>
+        </form>
     )
 }
 
