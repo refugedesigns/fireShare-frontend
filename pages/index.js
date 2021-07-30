@@ -3,6 +3,8 @@ import { useState } from "react"
 import RenderFile from "../components/RenderFile"
 import DownloadFile from "../components/DownloadFile"
 import EmailForm from "../components/EmailForm"
+import { Fragment } from "react"
+import Head from "next/head"
 
 
 export default function Home() {
@@ -48,7 +50,11 @@ export default function Home() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center" >
+    <Fragment>
+    <Head>
+      <title>Fire Share 2.0.0</title>
+    </Head>
+    <main className="flex flex-col items-center justify-center" >
         <h1 className="my-4 text-3xl font-medium text-gray-600">Got Any File for Sharing? Drop it like its hot!</h1>
         <div className="w-96 flex flex-col items-center bg-gray-200 shadow-xl rounded-xl justify-center">
           {!downloadLink && <DropZone setFile={setFile} />}
@@ -67,6 +73,7 @@ export default function Home() {
         </div>
         )}
         </div>
-    </div>
+    </main>
+    </Fragment>
   )
 }

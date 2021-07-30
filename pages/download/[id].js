@@ -1,7 +1,8 @@
 import RenderFile from "../../components/RenderFile";
 import Image from "next/image"
 import fileDownload from "js-file-download";
-import axios from "axios";
+import { Fragment } from "react"
+import Head from "next/head"
 
 
 export default function FileDownloadPage({data}) {
@@ -16,7 +17,11 @@ export default function FileDownloadPage({data}) {
         fileDownload(data, filename)
     }
     return (
-        <div className="flex flex-col items-center justify-center py-4 space-y-4 bg-gray-200 rounded-md shadow-xl w-96">
+        <Fragment>
+        <Head>
+            <title>Fire Share 2.0.0</title>
+        </Head>
+        <main className="flex flex-col items-center justify-center py-4 space-y-4 bg-gray-200 rounded-md shadow-xl w-96">
             {!id ? <span>Oops! File does not exist! check the URL</span> : <>
             
                 <div><Image src="/assets/folder.png" alt="" height={60} width={60} /></div>
@@ -24,7 +29,8 @@ export default function FileDownloadPage({data}) {
                 <RenderFile file={{ format, filename, sizeInBytes}}  />
                 <button className="button" onClick={downloadHandler}>Download</button>
              </>}
-        </div>
+        </main>
+        </Fragment>
     )
 }
 
