@@ -1,10 +1,10 @@
 import { useState } from "react"
 
-const EmailForm = ({id}) => {
+const EmailForm = ({emailStatus}) => {
     const [emailFrom, setEmailFrom] = useState('')
     const [emailTo, setEmailTo] = useState('')
     const [error, setError] = useState(null)
-    const [emailStatus, setEmailStatus] = useState("")
+    
     
     const emailFromHandler = event => {
         setEmailFrom(event.target.value)
@@ -14,28 +14,19 @@ const EmailForm = ({id}) => {
         setEmailTo(event.target.value)
     }
     
-    const sendEmailHandler = async(event) => {
+    const sendEmailHandler = (event) => {
         event.preventDefault()
         
         if(emailFrom.trim() === '' || emailTo.trim() === '') {
             setError("You inputs are incorrect, please check and try again.")
             return
         }
-        
-        const response = await fetch(`${process.env.BASE_URL}/api/files/email`, {
-            method: "POST",
-            body: JSON.stringify({
-                id: id,
-                emailFrom: emailFrom,
-                emailTo: emailTo
-            }),
-            headers: {
-                "Content-Type": "application/json"
-            }
+
+        props.onSubmit({
+            emailFrom,
+            emailTo
         })
-        const result = await response.json()
-        console.log(result)
-        setEmailStatus(`File sent to ${emailTo}`)
+        
         setEmailFrom('')
         setEmailTo('')
 

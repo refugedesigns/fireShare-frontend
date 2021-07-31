@@ -12,6 +12,7 @@ export default function Home() {
   const [id, setId] = useState(null)
   const [downloadLink, setDownloadLink] = useState(null)
   const [uploadState, setUploadState] = useState(null)
+  const [emailStatus, setEmailStatus] = useState("")
   
   const uploadHandler = async() => {
     
@@ -49,6 +50,24 @@ export default function Home() {
     setDownloadLink(null)
   }
 
+  const sendEmailHandler = (formData) => {
+    fetch(`${process.env.BASE_URL}/api/files/email`, {
+      method: "POST",
+      body: JSON.stringify({
+          id: id,
+          emailFrom: formData.emailFrom,
+          emailTo: formData.emailTo
+      }),
+      headers: {
+          "Content-Type": "application/json"
+      }
+  }).then(res => {
+      return res.json()
+  }).then(data => {
+      setEmailStatus(`File sent to ${formData.emailTo}`)
+  })
+  }
+
   return (
     <Fragment>
     <Head>
@@ -68,7 +87,7 @@ export default function Home() {
           
           <div className='flex flex-col items-center justify-center'>
           <DownloadFile downloadLink={downloadLink} />
-          <EmailForm id={id} />
+          <EmailForm onSubmit={sendEmailHandler} emailStatus={emailStatus} />
           <button className="button" onClick={resetFile}>Upload new file</button>
         </div>
         )}
