@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-const EmailForm = ({emailStatus}) => {
+const EmailForm = (props) => {
     const [emailFrom, setEmailFrom] = useState('')
     const [emailTo, setEmailTo] = useState('')
     const [error, setError] = useState(null)
@@ -38,7 +38,7 @@ const EmailForm = ({emailStatus}) => {
             <input onChange={emailFromHandler} type="email" placeholder="Email From" className="p-2 w-full rounded-md text-gray-600 focus:outline-none focus:ring focus:ring-gray-500" required/>
             <input onChange={emailToHandler} type="email" placeholder="Email To" className="p-2 w-full rounded-md text-gray-600 focus:outline-none focus:ring focus:ring-gray-500" required />
             {error && <p className="text-gray-600">{error}</p>}
-            {emailStatus && <p className="text-gray-600">{emailStatus}</p>}
+            {props.emailStatus && <p className="text-gray-600">{emailStatus}</p>}
             <button type="submit" className="button w-1/2">Email</button>
         </form>
     )
