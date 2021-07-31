@@ -22,7 +22,7 @@ const EmailForm = ({id}) => {
             return
         }
         
-        await fetch(`${process.env.BASE_URL}/api/files/email`, {
+        const response = await fetch(`${process.env.BASE_URL}/api/files/email`, {
             method: "POST",
             body: JSON.stringify({
                 id: id,
@@ -32,14 +32,10 @@ const EmailForm = ({id}) => {
             headers: {
                 "Content-Type": "application/json"
             }
-        }).then(res => res.json())
-          .then(data => {
-            console.log(data)
-            setEmailStatus(`File sent to ${emailTo}`)
-            
-            })
-          .catch(err => console.log(err))
-
+        })
+        const result = await response.json()
+        console.log(result)
+        setEmailStatus(`File sent to ${emailTo}`)
         setEmailFrom('')
         setEmailTo('')
 
