@@ -40,8 +40,8 @@ const EmailForm = ({id}) => {
             })
           .catch(err => console.log(err))
 
-        setEmailFrom("")
-        setEmailTo("")
+        setEmailFrom('')
+        setEmailTo('')
 
     }
     
